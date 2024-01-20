@@ -1,0 +1,30 @@
+{% extends 'Products/html/header_footer.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'Orders/css/user_orders.css' %}">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
+<div class="container">
+    <div class="row my-5">
+        <div class="col-12 w-100">
+            {% for order in orders %}
+            <h3 class="text-center">Order {{ order.email }}</h3>
+            {% for item in order.items.all %}
+            <a href="{% url 'phone_model' item.phone.id %}" class="text-reset text-decoration-none">
+                <div class="card mb-3 mx-auto ordered-items">
+                    <label class="fw-bold ms-1 me-auto badge bg-warning">{{ order.package_status }}</label>
+                    <div class="card-body">
+                        <h4 class="text-center">{{ item.phone.model }}</h4>
+                        <p class="card-text text-center ">{{ order.email }}</p>
+                        <label class="fw-bold text-success">{{ item.quantity }} pc. | {{ item.price }}$</label>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
